@@ -1,4 +1,4 @@
-#This analysis utilized the following Fortune 500 dataset:
+#This project utilized the following Fortune 500 dataset:
 
 CREATE TABLE fortune_companies (
     company_id INTEGER PRIMARY KEY,
@@ -58,8 +58,10 @@ VALUES
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
 
-Analysis
-#1:Assign all the companies in the Technology industry as "Well compensated","Compensated","Barely compensated"based on the revunue
+#For this project, I came up with my own queries that utilizes the CASE statement,HAVING clause,AND,
+and the aggregate function of AVG and MAX
+
+Query #1:Assign all the companies in the Technology industry as "Well compensated","Compensated","Barely compensated"based on the revunue
 
 SELECT company_name,
 CASE 
@@ -70,7 +72,7 @@ END as compensation_rating
 FROM fortune_companies
 WHERE industry='Technology';
 
-#2:Which industries have at least 100,000 employees and what are the average amount of employees? 
+Query #2:Which industries have at least 100,000 employees and what are the average amount of employees? 
 
 SELECT industry,
 ROUND(AVG(employees),1) as average_number_of_employees
@@ -79,16 +81,15 @@ GROUP BY industry
 HAVING average_number_of_employees >= 100000
 ORDER BY average_number_of_employees DESC;
 
-#3: Which companies have at least 20 paid time off days *and* at least 10 maternity leave weeks?
+Query #3: Which companies have at least 20 paid time off days *and* at least 10 maternity leave weeks?
 
 SELECT company_name
 FROM fortune_companies 
 WHERE paid_time_off_days >=20
 AND maternity_leave_weeks>=10;
 
-#4: Which company in the technology industry makes the most revenue and what’s their revenue? 
+Query #4: Which company in the technology industry makes the most revenue and what’s their revenue? 
 
 SELECT company_name, max(revenue)
 FROM fortune_companies
 WHERE industry = 'Technology';
-
